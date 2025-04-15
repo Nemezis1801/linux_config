@@ -102,3 +102,9 @@ Ze względu na modularną strukturę skryptu (korzystanie z plików w katalogach
 │   ├── en.sh              # Tłumaczenia Angielskie
 │   └── pl.sh              # Tłumaczenia Polskie
 └── README.md              # Ten plik
+
+## ⚙️ Działanie Skryptu
+
+*   **Logowanie:** Wszelkie działania, ostrzeżenia i błędy są zapisywane do pliku tekstowego `linux_config_log_RRRRMMDD_HHMMSS.txt` tworzonego w tym samym katalogu co skrypt. Pozwala to na późniejszą analizę przeprowadzonych operacji.
+*   **Kopie Zapasowe:** Przed modyfikacją istotnych plików konfiguracyjnych (np. `/etc/ssh/sshd_config`, `/etc/fstab`, `/etc/fail2ban/jail.local` itp.), skrypt automatycznie tworzy ich kopię zapasową. Kopie te są umieszczane w dedykowanym podkatalogu `linux_config_backups_RRRRMMDD_HHMMSS` w głównym katalogu skryptu, co umożliwia łatwe przywrócenie poprzedniej konfiguracji w razie potrzeby.
+*   **Język:** Skrypt inteligentnie próbuje wykryć język ustawiony w systemie operacyjnym użytkownika, analizując zmienne środowiskowe `$LANG` lub `$LANGUAGE`. Jeśli w katalogu `lang/` znajduje się plik tłumaczenia odpowiadający wykrytemu kodowi języka (np. `pl.sh` dla języka polskiego), zostanie on załadowany, a komunikaty i opcje menu będą wyświetlane w tym języku. W przypadku braku odpowiedniego tłumaczenia lub problemów z jego załadowaniem, skrypt domyślnie używa języka angielskiego (`en.sh`).
