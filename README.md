@@ -38,19 +38,67 @@ Modularny skrypt Bash przeznaczony do automatyzacji konfiguracji oraz instalacji
 *   Zainstalowane `whiptail` lub `dialog` (skrypt spróbuje je zainstalować, jeśli ich brakuje).
 *   Połączenie z internetem (do pobierania pakietów i potencjalnie skryptów).
 
-## 🚀 Użycie
+## 🚀 Użycie: Klonowanie Repozytorium (Zalecana Metoda)
 
 **⚠️ OSTRZEŻENIE BEZPIECZEŃSTWA ⚠️**
 
-Skrypty modyfikujące system, zwłaszcza te uruchamiane z `sudo`, powinny być uruchamiane z dużą ostrożnością. Zawsze **przejrzyj kod źródłowy**, aby upewnić się, że rozumiesz jego działanie i jest on bezpieczny dla Twojego środowiska. **Używasz tego skryptu na własną odpowiedzialność!**
+Uruchamianie jakichkolwiek skryptów modyfikujących system, zwłaszcza tych wymagających uprawnień `sudo`, powinno odbywać się z rozwagą. Zawsze **przejrzyj kod źródłowy**, aby upewnić się, że rozumiesz jego działanie i jest on bezpieczny dla Twojego środowiska. **Używasz tego skryptu na własną odpowiedzialność!**
 
 ---
 
-### Metoda Bezpośredniego Uruchomienia (NIE DZIAŁA dla tego skryptu)
+Ze względu na modularną strukturę skryptu (korzystanie z plików w katalogach `modules/` i `lang/`), jedynym poprawnym sposobem jego uruchomienia jest sklonowanie repozytorium i uruchomienie go lokalnie:
 
-Próba uruchomienia tego skryptu bezpośrednio za pomocą `curl | sudo bash` **nie powiedzie się**. Skrypt ma strukturę **modularną** i wymaga dostępu do plików w katalogach `modules/` oraz `lang/`, które nie zostaną pobrane tą metodą.
+1.  **Sklonuj repozytorium:**
+    Otwórz terminal i wykonaj polecenie:
+    ```bash
+    git clone https://github.com/Nemezis1801/linux_config.git
+    ```
 
-```bash
-# PONIŻSZE POLECENIE NIE ZADZIAŁA POPRAWNIE Z TYM SKRYPTEM!
-# curl -sSL https://raw.githubusercontent.com/Nemezis1801/linux_config/main/linux_setup.sh | sudo bash
-# Spowoduje to błędy ładowania modułów.
+2.  **Przejdź do katalogu skryptu:**
+    ```bash
+    cd linux_config
+    ```
+
+3.  **(Opcjonalnie, ale BARDZO ZALECANE) Przejrzyj kod:**
+    Zapoznaj się z zawartością pliku `linux_setup.sh` oraz plików w katalogach `modules/` i `lang/`, aby zrozumieć, co skrypt będzie robił w Twoim systemie.
+    ```bash
+    # Przykład przeglądania
+    less linux_setup.sh
+    ls modules/
+    less modules/core_utils.sh
+    # itd.
+    ```
+
+4.  **Nadaj uprawnienia do wykonania:**
+    System plików mógł nie zachować uprawnień wykonania podczas klonowania.
+    ```bash
+    chmod +x linux_setup.sh
+    ```
+
+5.  **Uruchom skrypt z uprawnieniami `sudo`:**
+    ```bash
+    sudo ./linux_setup.sh
+    ```
+
+6.  **Postępuj zgodnie z instrukcjami** wyświetlanymi w interfejsie tekstowym (`whiptail`/`dialog`). Skrypt poprowadzi Cię przez dostępne opcje i scenariusze.
+
+## 📁 Struktura Repozytorium
+
+```.
+├── linux_setup.sh         # Główny skrypt uruchomieniowy
+├── modules/               # Katalog z modułami funkcjonalnymi
+│   ├── core_utils.sh      # Podstawowe funkcje, UI, logowanie, detekcja
+│   ├── localization.sh    # Obsługa języków
+│   ├── package_manager.sh # Zarządzanie pakietami
+│   ├── service_manager.sh # Zarządzanie usługami
+│   ├── system_config.sh   # Konfiguracja systemu (hostname, users, cron)
+│   ├── network_config.sh  # Konfiguracja sieci (firewall, dns)
+│   ├── security.sh        # Funkcje bezpieczeństwa (SSH, Fail2Ban, Certbot...)
+│   ├── app_installer.sh   # Instalacja aplikacji (WWW, DB, Tools, Containers)
+│   ├── disk_management.sh # Zarządzanie dyskami (podstawowe)
+│   ├── backup_restore.sh  # Zarządzanie kopiami zapasowymi (podstawowe)
+│   └── scenarios.sh      # Gotowe scenariusze użycia
+├── lang/                  # Katalog z plikami tłumaczeń
+│   ├── en.sh              # Tłumaczenia Angielskie
+│   └── pl.sh              # Tłumaczenia Polskie
+└── README.md              # Ten plik
