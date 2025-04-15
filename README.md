@@ -103,8 +103,29 @@ Ze względu na modularną strukturę skryptu (korzystanie z plików w katalogach
 │   └── pl.sh              # Tłumaczenia Polskie
 └── README.md              # Ten plik
 
+```
 ## ⚙️ Działanie Skryptu
 
 *   **Logowanie:** Wszelkie działania, ostrzeżenia i błędy są zapisywane do pliku tekstowego `linux_config_log_RRRRMMDD_HHMMSS.txt` tworzonego w tym samym katalogu co skrypt. Pozwala to na późniejszą analizę przeprowadzonych operacji.
 *   **Kopie Zapasowe:** Przed modyfikacją istotnych plików konfiguracyjnych (np. `/etc/ssh/sshd_config`, `/etc/fstab`, `/etc/fail2ban/jail.local` itp.), skrypt automatycznie tworzy ich kopię zapasową. Kopie te są umieszczane w dedykowanym podkatalogu `linux_config_backups_RRRRMMDD_HHMMSS` w głównym katalogu skryptu, co umożliwia łatwe przywrócenie poprzedniej konfiguracji w razie potrzeby.
 *   **Język:** Skrypt inteligentnie próbuje wykryć język ustawiony w systemie operacyjnym użytkownika, analizując zmienne środowiskowe `$LANG` lub `$LANGUAGE`. Jeśli w katalogu `lang/` znajduje się plik tłumaczenia odpowiadający wykrytemu kodowi języka (np. `pl.sh` dla języka polskiego), zostanie on załadowany, a komunikaty i opcje menu będą wyświetlane w tym języku. W przypadku braku odpowiedniego tłumaczenia lub problemów z jego załadowaniem, skrypt domyślnie używa języka angielskiego (`en.sh`).
+
+## ❗ Ważne Uwagi
+
+*   **Testowanie:** Skrypt został stworzony jako rozbudowane narzędzie, ale jego testowanie na wszystkich wspieranych dystrybucjach i w różnych konfiguracjach jest ograniczone. Zawsze testuj go najpierw w bezpiecznym środowisku (np. maszyna wirtualna).
+*   **Różnice Między Dystrybucjami:** Pomimo starań o uniwersalność, mogą wystąpić problemy wynikające z różnic w nazewnictwie pakietów, ścieżkach plików lub działaniu poleceń między dystrybucjami. Zgłaszaj takie problemy jako Issue.
+*   **Brak Automatycznego Rollbacku:** Skrypt **nie posiada** funkcji automatycznego przywracania systemu do stanu sprzed uruchomienia w razie błędu. Polegaj na kopiach zapasowych tworzonych przez skrypt oraz własnych backupach systemu.
+*   **Ryzyko:** Modyfikacje systemu, konfiguracji bezpieczeństwa, a zwłaszcza operacje na dyskach (`fstab`) są **ryzykowne**. Upewnij się, że rozumiesz, co robisz.
+
+## 🤝 Kontrybucje
+
+Jeśli znajdziesz błąd, masz pomysł na ulepszenie, chcesz dodać nowe tłumaczenie lub funkcjonalność, zapraszam do współpracy!
+
+1.  Zgłoś problem lub propozycję jako **Issue** na GitHubie.
+2.  Stwórz **Fork** repozytorium.
+3.  Wprowadź zmiany w swojej gałęzi (np. `feature/nowa-funkcja` lub `fix/blad-x`).
+4.  Utwórz **Pull Request** do gałęzi `main` tego repozytorium, dokładnie opisując swoje zmiany.
+
+## 📜 Licencja
+
+Ten projekt jest udostępniany na warunkach licencji MIT. Zobacz plik [LICENSE](LICENSE) po szczegóły.
